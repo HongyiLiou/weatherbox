@@ -23,18 +23,23 @@ html,body
   background-color: #222
   user-select: none
 
-@mixin size($w,$h)
+=size($w,$h)
   width: $w
   height: $h
+
+=abpos($l:initial,$t:initial)
+  position: absolute
+  left: $l
+  top: $t
   
 label
   cursor: pointer
 
 .daybox
-  width: 50%
-  max-width: 400px
+  // width: 50%
+  width: 400px
   background-color: $color_white
-  box-shadow: 0px 0px 20px rgba(black,0.3)
+  box-shadow: 0px 0px 30px rgba(black,0.7)
   border-radius: 5px
   cursor: pointer
   overflow: hidden
@@ -108,11 +113,11 @@ label
     
 .top
   height: 330px
-  background-image: url("https://i.gyazo.com/0d3d9ce3a13c8650c5d3f2cd27993933.jpg")
+  background-image: url("https://i.gyazo.com/8399c074d76f2b1e90eb80b25eba7247.jpg")
   background-position: right top
   background-repeat: no-repeat
-  background-size: 800px 400px
-  animation: daylight 40s both
+  background-size: 800px 550px
+  animation: daylight 40s linear infinite alternate
   letter-spacing: 1px
   border-radius: 5px 5px 0px 0px
   
@@ -142,7 +147,7 @@ label
 .cloud
   +size(100px,36px)
   position: absolute
-  left: 200px
+  right: 50px
   bottom: 50px
   border-radius: 20px
   animation: clouddrift 4s infinite
@@ -242,3 +247,33 @@ label
   .temsvg
     circle,polyline,text
       opacity: 1
+		
+//所有星星～
+.allstars
+  //外層容器撐滿整個框框
+  +size(100%,100%)
+  position: absolute
+  left: 0
+  top: 0
+  @keyframes falling
+    0%,100%
+      opacity: 0
+    70%
+      opacity: 1
+    0%
+      transform: translate(100px, 0px)
+    100%
+      transform: translate(0px, 200px)
+  //以star開頭的為星星
+  [class^='star']
+    +size(3px,3px)
+    border-radius: 50%
+    background-color: #fff
+    animation: falling 2s infinite
+  //產生30顆星星不同的偏移位置跟動畫delay
+  @for $i from 1 through 15
+    .star#{$i}
+      $posX: random(100)*1%
+      $posY: random(80)*-1% + 30%
+      +abpos($posX,$posY)
+      animation-delay: $i*-0.9s

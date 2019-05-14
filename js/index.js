@@ -1,4 +1,4 @@
-        function getDate() {  
+ function getDate() {  
             var today = new Date();  
             var date = today.getFullYear() + "/ " + twoDigits(today.getMonth() + 1) + "/ " + twoDigits(today.getDate());  
             var week = " 週" + "日一二三四五六 ".charAt(today.getDay());  
